@@ -1,0 +1,14 @@
+{
+  "name": "todo-mean",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "latest",
+    "cookie-parser": "latest",
+    "bower": "^1.7.9",
+    "express": "latest",
+    "method-override": "latest",
+    "mongoose": "latest",
+    "client-sessions": "latest",
+    "bcrypt": "latest"
+  }
+}
