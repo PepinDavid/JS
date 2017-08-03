@@ -1,10 +1,12 @@
 function produisMatrice (matrice1, matrice2, nbRecursive){
+    nbRecursive = nbRecursive || 0;
     var newMatrice = [];
     //1. verifier le nb colonnes de matrice1 et le nombres de lignes de matrice2
-    var lenLines = matrice1.length,
-    lenColumns = matrice2[0].length;
-    if(lenColumns == lenLines && nbRecursive < 2){
-
+    var lenLines = matrice2.length;
+    lenColumns = matrice1[0].length;
+    if(lenColumns == lenLines){
+        lenLines = matrice2[0].length;
+        lenColumns = matrice1.length;
         console.log(lenColumns+".c, "+lenLines+".l")
         newMatrice = new Array(lenLines);
         //2. creation de la matrice finale vide
@@ -30,7 +32,9 @@ function produisMatrice (matrice1, matrice2, nbRecursive){
                 //creation 'var produit' pour additionner les produits de chaque ligne/colonne
                 var produit = 0;
                 for(var j = 0; j < matrice2.length; j++){
+                    console.log(arrLine[j] +" * "+matrice2[j][nbColumn]+' = '+arrLine[j] * matrice2[j][nbColumn])
                     produit += (arrLine[j] * matrice2[j][nbColumn]);
+                    console.log(produit)
                 }
                 //on place l'addition des produits lignes/colonnes dans la nouvelle matrice
                 newMatrice[i][nbColumn] = produit;
@@ -47,5 +51,5 @@ function produisMatrice (matrice1, matrice2, nbRecursive){
         return produisMatrice(matrice2, matrice1, nbRecursive);
     }
       else
-        return {commutation: false, matrice: newMatrice};
+        return {commutation: true, matrice: newMatrice};
 }
