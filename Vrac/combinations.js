@@ -33,7 +33,7 @@ class CombinationArray{
         // at remaining positions
         for(var i = start; i <= end && end-i+1 >= r-index; i++){
             datas[index] = arr[i];
-
+            console.log(datas[index]);
             self.combinationUtil(arr, datas, i+1, end, index+1, r, sArr);
 
         }
