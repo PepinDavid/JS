@@ -25,6 +25,7 @@ class ArrayOwnSeparator{
         this.uniqueValuesSep = [];
         this.getUniqueSeparator(arrObj);
         this.createReturnArray(arrObj);
+        this.returnArray = this.cleanEmpty(this.returnArray);
     }
     verifySeparator(arrObj, sep){
         if(typeof sep == 'string'){
@@ -46,7 +47,10 @@ class ArrayOwnSeparator{
         if(typeof this.keySeparator == 'string'){
             var arr = [];
             for(var i = 0; i < arrObj.length; i++){
-                arr.push(arrObj[i][this.keySeparator]);
+                if(arrObj[i][this.keySeparator] instanceof Date)
+                    arr.push((arrObj[i][this.keySeparator]).toString());
+                else
+                    arr.push(arrObj[i][this.keySeparator]);
             }
             arr.sort();
             this.uniqueValuesSep = arr.filter(this.onlyUnique);
@@ -55,6 +59,10 @@ class ArrayOwnSeparator{
                 var arr = [];
                 for(var i = 0; i < arrObj.length; i++){
                     arr.push(arrObj[i][this.keySeparator[j]]);
+                    if(arrObj[i][this.keySeparator[j]] instanceof Date)
+                        arr.push((arrObj[i][this.keySeparator[j]]).toString());
+                    else
+                        arr.push(arrObj[i][this.keySeparator[j]]);
                 }
                 arr.sort();
                 this.uniqueValuesSep.push(arr.filter(this.onlyUnique));
@@ -130,6 +138,18 @@ class ArrayOwnSeparator{
     onlyUnique(value, index, self) {
         return self.indexOf(value) === index;
     }
+    cleanEmpty(arr){
+        var newArray = [];
+        for(var i = 0; i < arr.length; i++){
+            if(arr[i]){
+                if(Array.isArray(arr[i]))
+                    newArray.push(this.cleanEmpty(arr[i]));
+                else
+                    newArray.push(arr[i]);
+            }
+        }
+        return newArray;
+    }
 }
 
-
+export const ToolArrayByOwnSeparator = ArrayOwnSeparator;
